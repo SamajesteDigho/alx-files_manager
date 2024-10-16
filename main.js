@@ -7,7 +7,7 @@ const waitConnection = () => {
             await setTimeout(() => {
                 i += 1;
                 if (i >= 10) {
-                    reject()
+                    reject(Error('Error: Connexion failed'))
                 }
                 else if(!dbClient.isAlive()) {
                     repeatFct()

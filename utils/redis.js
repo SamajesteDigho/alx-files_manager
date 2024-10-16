@@ -7,7 +7,6 @@ class RedisClient {
     this.client.on('error', (err) => {
       console.log(`Error: ${err.message}`);
     });
-
   }
 
   isAlive() {
@@ -24,7 +23,9 @@ class RedisClient {
   }
 
   async del(key) {
-    await promisify(this.client.del).bind(this.client)(key);
+    if (key !== null) {
+      await promisify(this.client.del).bind(this.client)(key);
+    }
   }
 }
 
