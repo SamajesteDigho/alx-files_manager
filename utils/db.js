@@ -7,13 +7,16 @@ class DBClient {
     this.port = process.env.DB_PORT || 27017;
     this.database = process.env.DB_DATABASE || 'file_manager';
 
-    // const connector = new MongoClient(`mongodb://${this.host}:${this.port}`);
-    // connector.connect().then(() => {
-    //   this.isConnected = true;
-    //   this.db = connector.db(this.database);
-    // }).catch((err) => {
-    //   console.log(`Digho Error: ${err}`);
-    // });
+    const connector = new MongoClient(
+      `mongodb://${this.host}:${this.port}`,
+      { useNewUrlParser: true, useUnifiedTopology: true }
+    );
+    connector.connect().then(() => {
+      this.isConnected = true;
+      this.db = connector.db(this.database);
+    }).catch((err) => {
+      console.log(`Error: ${err}`);
+    });
   }
 
   isAlive() {
